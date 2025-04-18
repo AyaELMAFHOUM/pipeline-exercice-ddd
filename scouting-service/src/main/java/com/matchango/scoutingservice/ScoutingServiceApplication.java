@@ -1,4 +1,4 @@
-package com.footballscout;
+package com.matchango.scoutingservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
