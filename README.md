@@ -14,7 +14,7 @@ This will start a PostgreSQL container on port `5432` with the database `scoutin
 
 ---
 
-### For running the Project ()
+### For running the Project
 
 1. Clone the repository:
    ```bash
