@@ -8,9 +8,9 @@ To run PostgreSQL using Docker and manually add scouts to the database, use the 
 
 ```bash
 docker run --name postgres-container -e POSTGRES_PASSWORD=tmpPass -e POSTGRES_USER=postgres -e POSTGRES_DB=scoutingdb -p 5432:5432 -d postgres:13 && \
-docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scouts (username) VALUES ('Yanis');" && \
-docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scouts (username) VALUES ('Imad');" && \
-docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scouts (username) VALUES ('Aya');"
+docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scout (username) VALUES ('Yanis');" && \
+docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scout (username) VALUES ('Imad');" && \
+docker exec -it postgres-container psql -U postgres -d scoutingdb -c "INSERT INTO scout (username) VALUES ('Aya');"
 ```
 
 This will:
