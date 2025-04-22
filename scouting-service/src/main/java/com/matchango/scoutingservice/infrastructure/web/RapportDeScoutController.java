@@ -63,13 +63,18 @@ public class RapportDeScoutController {
         }
     }
     @GetMapping("/players/search")
-    public ResponseEntity<List<JoueurWithNoteDto>> searchPlayers(
+    public ResponseEntity<ApiResponse> searchPlayers(
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String position,
             @RequestParam(required = false) Integer noteMin
     ) {
         List<JoueurWithNoteDto> result = rapportService.chercherJoueursAvecFiltres(age, position, noteMin);
-        return ResponseEntity.ok(result);
+        ApiResponse response = ApiResponse.builder()
+                .status("success")
+                .message("Players fetched successfully")
+                .data(result)
+                .build();
+        return ResponseEntity.ok(response);
     }
 
 }
