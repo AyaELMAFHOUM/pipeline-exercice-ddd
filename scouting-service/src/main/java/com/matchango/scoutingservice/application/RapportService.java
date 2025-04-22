@@ -2,12 +2,17 @@ package com.matchango.scoutingservice.application;
 
 import com.matchango.scoutingservice.domain.model.*;
 import com.matchango.scoutingservice.domain.repositories.JoueurRepository;
+import com.matchango.scoutingservice.infrastructure.web.dto.JoueurWithNoteDto;
 import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -68,5 +73,28 @@ public class RapportService {
             System.err.println("Error occurred while saving rapport: " + e.getMessage());
             throw new RuntimeException("An error occurred while creating the report.");
         }
+    }
+    public List<JoueurWithNoteDto> chercherJoueursAvecFiltres(Integer age, String positionStr, Integer noteMin) {
+        final Position position;
+
+        if (positionStr != null) {
+            try {
+                position = Position.valueOf(positionStr.toUpperCase()); // Convert string to enum
+            } catch (IllegalArgumentException e) {
+                throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid position value: " + positionStr, e);
+            }
+        } else {
+            position = null;
+        }
+
+        List<JoueurWithNoteDto> allPlayers = rapportRepository.findAllJoueursWithAvgNote();
+
+        return allPlayers.stream()
+                .filter(joueur ->
+                        (age == null || joueur.getAge().equals(age)) &&
+                                (position == null || joueur.getPosition() == position) &&
+                                (noteMin == null || (joueur.getNoteMoyenne() != null && joueur.getNoteMoyenne() >= noteMin))
+                )
+                .collect(Collectors.toList());
     }
 }

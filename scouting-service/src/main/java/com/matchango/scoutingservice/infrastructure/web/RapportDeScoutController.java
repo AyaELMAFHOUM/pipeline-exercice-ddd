@@ -2,12 +2,15 @@ package com.matchango.scoutingservice.infrastructure.web;
 
 import com.matchango.scoutingservice.application.RapportService;
 import com.matchango.scoutingservice.domain.model.Position;
+import com.matchango.scoutingservice.infrastructure.web.dto.JoueurWithNoteDto;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
 import com.matchango.scoutingservice.infrastructure.web.dto.CreateRapportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("")
@@ -59,4 +62,19 @@ public class RapportDeScoutController {
             return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
         }
     }
+    @GetMapping("/players/search")
+    public ResponseEntity<ApiResponse> searchPlayers(
+            @RequestParam(required = false) Integer age,
+            @RequestParam(required = false) String position,
+            @RequestParam(required = false) Integer noteMin
+    ) {
+        List<JoueurWithNoteDto> result = rapportService.chercherJoueursAvecFiltres(age, position, noteMin);
+        ApiResponse response = ApiResponse.builder()
+                .status("success")
+                .message("Players fetched successfully")
+                .data(result)
+                .build();
+        return ResponseEntity.ok(response);
+    }
+
 }
