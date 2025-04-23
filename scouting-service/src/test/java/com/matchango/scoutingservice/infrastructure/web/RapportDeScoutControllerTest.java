@@ -1,4 +1,5 @@
 package com.matchango.scoutingservice.infrastructure.web;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.matchango.scoutingservice.domain.model.Joueur;
 import com.matchango.scoutingservice.domain.model.Scout;
@@ -134,7 +135,5 @@ public class RapportDeScoutControllerTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
         assertThat(response.getMessage()).isEqualTo("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
-
     }
-
 }
