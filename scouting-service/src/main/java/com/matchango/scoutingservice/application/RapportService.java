@@ -35,13 +35,10 @@ public class RapportService {
 
         Joueur joueur;
         if (joueurOpt.isEmpty()) {
-            if (position == null) {
-                throw new IllegalArgumentException("Position non valide.");
-            }
             if (scoutUsername == null) {
                 throw new IllegalArgumentException("Scout username non valide.");
             }
-            if (age == null || note == null || prenom == null || match == null) {
+            if (age == null || note == null || prenom == null || match == null || position == null) {
                 throw new IllegalArgumentException("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
             }
 

@@ -108,7 +108,6 @@ public class RapportDeScoutControllerTest {
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");
-
         // 'note' is not set
 
         // Send POST request to /reports
@@ -120,6 +119,22 @@ public class RapportDeScoutControllerTest {
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
         assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : note, prénom, nom, scoutUsername, match, observation");
+    }
+    @Test
+    void testCreateRapportWithoutPlayer() {
+        CreateRapportDto createRapportDto = new CreateRapportDto();
+        createRapportDto.setNom("NewPlayer");
+        createRapportDto.setPrenom("Player");
+        createRapportDto.setScoutUsername("houssam1337");
+        createRapportDto.setMatch("Match 1");
+        createRapportDto.setObservation("Good performance");
+        createRapportDto.setNote(9);
+        String url = "http://localhost:" + port + "/reports";
+        ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isEqualTo("error");
+        assertThat(response.getMessage()).isEqualTo("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
+
     }
 
 }
