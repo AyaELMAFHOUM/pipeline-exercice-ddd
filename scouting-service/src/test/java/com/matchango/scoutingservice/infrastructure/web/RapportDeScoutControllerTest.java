@@ -67,4 +67,25 @@ public class RapportDeScoutControllerTest {
         assertThat(response.getStatus()).isEqualTo("success");
         assertThat(response.getMessage()).isEqualTo("Rapport créé avec succès.");
     }
+    @Test
+    void testCreateReportWithoutScout() {
+        CreateRapportDto createRapportDto = new CreateRapportDto();
+        createRapportDto.setNom("Anis");
+        createRapportDto.setPrenom("Bmjk");
+        createRapportDto.setAge(23);
+        createRapportDto.setPosition("ATTAQUANT");
+        createRapportDto.setScoutUsername("nonExistentScout");
+        createRapportDto.setMatch("Match 1");
+        createRapportDto.setObservation("Good performance");
+        createRapportDto.setNote(8);
+
+        // Send POST request to /reports
+        String url = "http://localhost:" + port + "/reports";
+        ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
+
+        // Assertions: Expecting a BAD_REQUEST response since the scout does not exist
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isEqualTo("error");
+        assertThat(response.getMessage()).contains("Scout avec ce nom d'utilisateur non trouvé.");
+    }
 }
