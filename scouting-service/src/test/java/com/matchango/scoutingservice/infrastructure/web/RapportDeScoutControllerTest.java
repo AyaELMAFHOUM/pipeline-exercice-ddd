@@ -49,8 +49,8 @@ public class RapportDeScoutControllerTest {
     }
     void createPlayer(){
         Joueur joueur = new Joueur();
-        joueur.setNom("ExistedPlayer");
-        joueur.setPrenom("Player");
+        joueur.setLastName("ExistedPlayer");
+        joueur.setName("Player");
         joueurRepository.save(joueur);
     }
 
@@ -58,8 +58,8 @@ public class RapportDeScoutControllerTest {
     void testCreateReport() {
         // Prepare CreateRapportDto for the POST request
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setNom("Houssam");
-        createRapportDto.setPrenom("Eddine");
+        createRapportDto.setLast_name("Houssam");
+        createRapportDto.setName("Eddine");
         createRapportDto.setAge(22);
         createRapportDto.setPosition("ATTAQUANT");
         createRapportDto.setScoutUsername("houssam1337");
@@ -78,8 +78,8 @@ public class RapportDeScoutControllerTest {
     @Test
     void testCreateReportWithoutScout() {
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setNom("Anis");
-        createRapportDto.setPrenom("Bmjk");
+        createRapportDto.setLast_name("Anis");
+        createRapportDto.setName("Bmjk");
         createRapportDto.setAge(23);
         createRapportDto.setPosition("ATTAQUANT");
         createRapportDto.setScoutUsername("nonExistentScout");
@@ -94,7 +94,7 @@ public class RapportDeScoutControllerTest {
         // Assertions: Expecting a BAD_REQUEST response since the scout does not exist
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("Scout avec ce nom d'utilisateur non trouvé.");
+        assertThat(response.getMessage()).contains("Scout avec ce username d'utilisateur non trouvé.");
     }
     @Test
     void testCreateReportWithMissingFields() {
@@ -102,8 +102,8 @@ public class RapportDeScoutControllerTest {
         this.createPlayer();
         // Create a CreateRapportDto with missing 'note'
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setNom("ExistedPlayer");
-        createRapportDto.setPrenom("Player");
+        createRapportDto.setLast_name("ExistedPlayer");
+        createRapportDto.setName("Player");
         createRapportDto.setAge(22);
         createRapportDto.setPosition("ATTAQUANT");
         createRapportDto.setScoutUsername("houssam1337");
@@ -119,13 +119,13 @@ public class RapportDeScoutControllerTest {
         // Assertions: Expecting a BAD_REQUEST response since 'note' is missing
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : note, prénom, nom, scoutUsername, match, observation");
+        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : note, name, lastName, scoutUsername, match, observation");
     }
     @Test
     void testCreateRapportWithoutPlayer() {
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setNom("NewPlayer");
-        createRapportDto.setPrenom("Player");
+        createRapportDto.setLast_name("NewPlayer");
+        createRapportDto.setName("Player");
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");

@@ -46,15 +46,15 @@ public class PlayerSearchControllerTest {
         scoutRepository.deleteAll();
 
         Joueur joueur_0 = new Joueur();
-        joueur_0.setNom("Haddouche");
-        joueur_0.setPrenom("Houssam eddine");
+        joueur_0.setLastName("Haddouche");
+        joueur_0.setName("Houssam eddine");
         joueur_0.setAge(20);
         joueur_0.setPosition(Position.ATTAQUANT);
         joueurRepository.save(joueur_0);
 
         Joueur joueur_1 = new Joueur();
-        joueur_1.setNom("idk");
-        joueur_1.setPrenom("Anis");
+        joueur_1.setLastName("idk");
+        joueur_1.setName("Anis");
         joueur_1.setAge(27);
         joueur_1.setPosition(Position.MILIEU);
         joueurRepository.save(joueur_1);
@@ -89,8 +89,8 @@ public class PlayerSearchControllerTest {
 
     @Test
     void testSearchPlayersByAge() {
-        String expectedNom = "Haddouche";
-        String expectedPrenom = "Houssam eddine";
+        String expectedLast_name = "Haddouche";
+        String expectedname = "Houssam eddine";
         int expectedAge = 20;
         String expectedPosition = "ATTAQUANT";
         double expectedNote = 50.0;
@@ -102,8 +102,8 @@ public class PlayerSearchControllerTest {
         List<?> players = (List<?>) response.getData();
         assertThat(players).isNotEmpty();
         Map<?, ?> actualPlayer = (Map<?, ?>) players.get(0);
-        assertThat(actualPlayer.get("nom")).isEqualTo(expectedNom);
-        assertThat(actualPlayer.get("prenom")).isEqualTo(expectedPrenom);
+        assertThat(actualPlayer.get("last_name")).isEqualTo(expectedLast_name);
+        assertThat(actualPlayer.get("name")).isEqualTo(expectedname);
         assertThat(actualPlayer.get("age")).isEqualTo(expectedAge);
         assertThat(actualPlayer.get("position")).isEqualTo(expectedPosition);
         assertThat(actualPlayer.get("noteMoyenne")).isEqualTo(expectedNote);

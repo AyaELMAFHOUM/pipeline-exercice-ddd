@@ -39,8 +39,8 @@ public class RapportDeScoutController {
             }
 
             rapportService.creerRapport(
-                    createRapportDto.getNom(),
-                    createRapportDto.getPrenom(),
+                    createRapportDto.getLast_name(),
+                    createRapportDto.getName(),
                     createRapportDto.getAge(),
                     position,
                     createRapportDto.getScoutUsername(),
