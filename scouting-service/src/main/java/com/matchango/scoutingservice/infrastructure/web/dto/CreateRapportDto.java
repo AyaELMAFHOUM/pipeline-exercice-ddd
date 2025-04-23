@@ -15,5 +15,5 @@ public class CreateRapportDto {
     private String scoutUsername;
     private String match;
     private String observation;
-    private int note;
+    private Integer note;
 }

@@ -1,5 +1,6 @@
 package com.matchango.scoutingservice.infrastructure.web;
 
+import com.matchango.scoutingservice.domain.model.Joueur;
 import com.matchango.scoutingservice.domain.model.Scout;
 import com.matchango.scoutingservice.domain.repositories.JoueurRepository;
 import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
@@ -45,6 +46,12 @@ public class RapportDeScoutControllerTest {
         scout.setUsername("houssam1337");
         scoutRepository.save(scout);
     }
+    void createPlayer(){
+        Joueur joueur = new Joueur();
+        joueur.setNom("ExistedPlayer");
+        joueur.setPrenom("Player");
+        joueurRepository.save(joueur);
+    }
 
     @Test
     void testCreateReport() {
@@ -88,4 +95,31 @@ public class RapportDeScoutControllerTest {
         assertThat(response.getStatus()).isEqualTo("error");
         assertThat(response.getMessage()).contains("Scout avec ce nom d'utilisateur non trouvé.");
     }
+    @Test
+    void testCreateReportWithMissingFields() {
+        // Add player to the TestDB first
+        this.createPlayer();
+        // Create a CreateRapportDto with missing 'note'
+        CreateRapportDto createRapportDto = new CreateRapportDto();
+        createRapportDto.setNom("ExistedPlayer");
+        createRapportDto.setPrenom("Player");
+        createRapportDto.setAge(22);
+        createRapportDto.setPosition("ATTAQUANT");
+        createRapportDto.setScoutUsername("houssam1337");
+        createRapportDto.setMatch("Match 1");
+        createRapportDto.setObservation("Good performance");
+
+        // 'note' is not set
+
+        // Send POST request to /reports
+        String url = "http://localhost:" + port + "/reports";
+        ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
+        System.out.println(response);
+
+        // Assertions: Expecting a BAD_REQUEST response since 'note' is missing
+        assertThat(response).isNotNull();
+        assertThat(response.getStatus()).isEqualTo("error");
+        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : note, prénom, nom, scoutUsername, match, observation");
+    }
+
 }
