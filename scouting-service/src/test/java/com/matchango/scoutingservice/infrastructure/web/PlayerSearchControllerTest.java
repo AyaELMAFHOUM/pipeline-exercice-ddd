@@ -96,7 +96,6 @@ public class PlayerSearchControllerTest {
         double expectedNote = 50.0;
         String url = "http://localhost:" + port + "/players/search?age=20";
         ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
-        System.out.println("@(*#(!)!@*)#(((((((((((((((((((((((((*)@(!*#()*@!()#*()!@*" + response);
         assertThat(response.getStatus()).isEqualTo("success");
         assertThat(response.getMessage()).isEqualTo("Players fetched successfully");
         assertThat(response.getData()).isNotNull();

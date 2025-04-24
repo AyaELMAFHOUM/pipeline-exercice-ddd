@@ -1,6 +1,7 @@
 package com.matchango.scoutingservice.domain.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 import lombok.*;
 
 @Entity
@@ -17,7 +18,7 @@ public class Report {
     @ManyToOne
     private Scout scout;
 
-    private int technicalRating;
+    private double technicalRating;
 
     private String observation;
 

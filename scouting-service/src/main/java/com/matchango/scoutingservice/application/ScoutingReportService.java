@@ -23,7 +23,7 @@ public class ScoutingReportService {
     private final ScoutRepository scoutRepository;
 
     public void createReport(String firstName, String name, Integer age, Position position,
-                             String scoutUsername, String match, String observation, Integer technicalRating) {
+                             String scoutUsername, String match, String observation, Double technicalRating) {
 
         Optional<Scout> scoutOpt = scoutRepository.findByUsername(scoutUsername);
         if (scoutOpt.isEmpty()) {
@@ -69,7 +69,7 @@ public class ScoutingReportService {
             throw new RuntimeException("An error occurred while generating the report.");
         }
     }
-    public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Integer minRating) {
+    public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Double minRating) {
         final Position position;
 
         if (positionStr != null) {

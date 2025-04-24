@@ -63,7 +63,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setScoutUsername("houssam1337");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
-        createScoutingReportDto.setTechnicalRating(8);
+        createScoutingReportDto.setTechnicalRating(Double.valueOf(8));
 
         // Send POST request to /reports
         String url = "http://localhost:" + port + "/reports";
@@ -83,7 +83,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setScoutUsername("nonExistentScout");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
-        createScoutingReportDto.setTechnicalRating(8);
+        createScoutingReportDto.setTechnicalRating(Double.valueOf(8));
 
         // Send POST request to /reports
         String url = "http://localhost:" + port + "/reports";
@@ -117,7 +117,7 @@ public class ReportControllerTest {
         // Assertions: Expecting a BAD_REQUEST response since 'technicalRating' is missing
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("All information must be provided: technicalRating, firstName, lastName, scoutUsername, match, observation");
+        assertThat(response.getMessage()).contains("Validation failed");
     }
     @Test
     void testCreateRapportWithoutPlayer() {
@@ -127,7 +127,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setScoutUsername("houssam1337");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
-        createScoutingReportDto.setTechnicalRating(9);
+        createScoutingReportDto.setTechnicalRating(Double.valueOf(9));
         String url = "http://localhost:" + port + "/reports";
         ApiResponse response = restTemplate.postForObject(url, createScoutingReportDto, ApiResponse.class);
         assertThat(response).isNotNull();

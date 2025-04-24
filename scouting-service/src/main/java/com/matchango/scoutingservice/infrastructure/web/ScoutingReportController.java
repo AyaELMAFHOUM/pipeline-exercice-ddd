@@ -5,6 +5,7 @@ import com.matchango.scoutingservice.domain.model.Position;
 import com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
 import com.matchango.scoutingservice.infrastructure.web.dto.CreateScoutingReportDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ScoutingReportController {
     private final ScoutingReportService scoutingReportService;
 
     @PostMapping("/reports")
-    public ResponseEntity<ApiResponse> createReport(@RequestBody CreateScoutingReportDto createScoutingReportDto) {
+    public ResponseEntity<ApiResponse> createReport(@Valid @RequestBody CreateScoutingReportDto createScoutingReportDto) {
         try {
             // TODO: Ref - move this check and throw error to Service
             String positionString = createScoutingReportDto.getPosition();
@@ -66,7 +67,7 @@ public class ScoutingReportController {
     public ResponseEntity<ApiResponse> searchPlayers(
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String position,
-            @RequestParam(required = false) Integer minRating
+            @RequestParam(required = false) Double minRating
     ) {
         List<PlayerWithRatingDto> result = scoutingReportService.findPlayersWithFiltres(age, position, minRating);
         ApiResponse response = ApiResponse.builder()
