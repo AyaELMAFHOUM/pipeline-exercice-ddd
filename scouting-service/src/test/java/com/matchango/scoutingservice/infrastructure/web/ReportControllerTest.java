@@ -28,7 +28,6 @@ public class ReportControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
 
-    private String baseUrl;
     @Autowired
     private ScoutingReportRepository scoutingReportRepository;
     @Autowired
@@ -72,7 +71,7 @@ public class ReportControllerTest {
 
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("success");
-        assertThat(response.getMessage()).isEqualTo("Rapport créé avec succès.");
+        assertThat(response.getMessage()).isEqualTo("Report created successfully.");
     }
     @Test
     void testCreateReportWithoutScout() {
@@ -93,7 +92,7 @@ public class ReportControllerTest {
         // Assertions: Expecting a BAD_REQUEST response since the scout does not exist
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("Scout avec ce username d'utilisateur non trouvé.");
+        assertThat(response.getMessage()).contains("Scout with this username was not found.");
     }
     @Test
     void testCreateReportWithMissingFields() {
@@ -118,7 +117,7 @@ public class ReportControllerTest {
         // Assertions: Expecting a BAD_REQUEST response since 'technicalRating' is missing
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : technicalRating, name, lastName, scoutUsername, match, observation");
+        assertThat(response.getMessage()).contains("All information must be provided: technicalRating, firstName, lastName, scoutUsername, match, observation");
     }
     @Test
     void testCreateRapportWithoutPlayer() {
@@ -133,6 +132,6 @@ public class ReportControllerTest {
         ApiResponse response = restTemplate.postForObject(url, createScoutingReportDto, ApiResponse.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).isEqualTo("player n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
+        assertThat(response.getMessage()).isEqualTo("Player does not exist. Please provide age, position, and other required data.");
     }
 }

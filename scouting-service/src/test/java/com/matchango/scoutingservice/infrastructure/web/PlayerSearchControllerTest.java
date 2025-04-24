@@ -90,23 +90,23 @@ public class PlayerSearchControllerTest {
     @Test
     void testSearchPlayersByAge() {
         String expectedLastName = "Haddouche";
-        String expectedname = "Houssam eddine";
+        String expectedFirstName = "Houssam eddine";
         int expectedAge = 20;
         String expectedPosition = "FORWARD";
         double expectedNote = 50.0;
         String url = "http://localhost:" + port + "/players/search?age=20";
         ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);
+        System.out.println("@(*#(!)!@*)#(((((((((((((((((((((((((*)@(!*#()*@!()#*()!@*" + response);
         assertThat(response.getStatus()).isEqualTo("success");
         assertThat(response.getMessage()).isEqualTo("Players fetched successfully");
         assertThat(response.getData()).isNotNull();
         List<?> players = (List<?>) response.getData();
         assertThat(players).isNotEmpty();
         Map<?, ?> actualPlayer = (Map<?, ?>) players.get(0);
-        assertThat(actualPlayer.get("firstName")).isEqualTo(expectedLastName);
-        assertThat(actualPlayer.get("name")).isEqualTo(expectedname);
+        assertThat(actualPlayer.get("firstName")).isEqualTo(expectedFirstName);
+        assertThat(actualPlayer.get("lastName")).isEqualTo(expectedLastName);
         assertThat(actualPlayer.get("age")).isEqualTo(expectedAge);
         assertThat(actualPlayer.get("position")).isEqualTo(expectedPosition);
         assertThat(actualPlayer.get("averageRating")).isEqualTo(expectedNote);
     }
-
 }

@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PlayerWithRatingDto {
+    private String lastName;
     private String firstName;
-    private String name;
     private Integer age;
     private Position position;
     private Double averageRating;

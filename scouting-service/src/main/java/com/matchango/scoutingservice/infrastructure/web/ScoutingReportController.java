@@ -51,7 +51,7 @@ public class ScoutingReportController {
 
             ApiResponse response = ApiResponse.builder()
                     .status("success")
-                    .message("Rapport créé avec succès.")
+                    .message("Report created successfully.")
                     .build();
             return new ResponseEntity<>(response, HttpStatus.CREATED);
         } catch (IllegalArgumentException e) {

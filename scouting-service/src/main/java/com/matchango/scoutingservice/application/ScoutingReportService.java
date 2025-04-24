@@ -27,7 +27,7 @@ public class ScoutingReportService {
 
         Optional<Scout> scoutOpt = scoutRepository.findByUsername(scoutUsername);
         if (scoutOpt.isEmpty()) {
-            throw new IllegalArgumentException("Scout avec ce username d'utilisateur non trouvé.");
+            throw new IllegalArgumentException("Scout with this username was not found.");
         }
 
         Optional<Player> playerOpt = playerRepository.findByLastNameAndFirstName(firstName, name);
@@ -35,10 +35,10 @@ public class ScoutingReportService {
         Player player;
         if (playerOpt.isEmpty()) {
             if (scoutUsername == null) {
-                throw new IllegalArgumentException("Scout username non valide.");
+                throw new IllegalArgumentException("Invalid scout username.");
             }
             if (age == null || technicalRating == null || name == null || match == null || position == null) {
-                throw new IllegalArgumentException("player n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
+                throw new IllegalArgumentException("Player does not exist. Please provide age, position, and other required data.");
             }
 
 
@@ -50,7 +50,7 @@ public class ScoutingReportService {
             player = playerRepository.save(player);
         } else {
             if (technicalRating == null || name == null || firstName == null || scoutUsername == null || match == null || observation == null) {
-                throw new IllegalArgumentException("Tous les renseignements doivent être fournis : technicalRating, name, lastName, scoutUsername, match, observation.");
+                throw new IllegalArgumentException("All information must be provided: technicalRating, firstName, lastName, scoutUsername, match, observation");
             }
             player = playerOpt.get();
         }
@@ -66,7 +66,7 @@ public class ScoutingReportService {
         try {
             scoutingReportRepository.save(rapport);
         } catch (Exception e) {
-            throw new RuntimeException("An error occurred while creating the report.");
+            throw new RuntimeException("An error occurred while generating the report.");
         }
     }
     public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Integer minRating) {
