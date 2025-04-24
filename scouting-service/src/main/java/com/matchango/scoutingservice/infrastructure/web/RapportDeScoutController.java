@@ -39,7 +39,7 @@ public class RapportDeScoutController {
             }
 
             rapportService.creerRapport(
-                    createRapportDto.getLast_name(),
+                    createRapportDto.getFirstName(),
                     createRapportDto.getName(),
                     createRapportDto.getAge(),
                     position,

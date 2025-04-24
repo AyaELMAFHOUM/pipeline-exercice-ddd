@@ -22,7 +22,7 @@ public class RapportService {
     private final RapportDeScoutRepository rapportRepository;
     private final ScoutRepository scoutRepository;
 
-    public void creerRapport(String last_name, String name, Integer age, Position position,
+    public void creerRapport(String firstName, String name, Integer age, Position position,
                              String scoutUsername, String match, String observation, Integer note) {
 
         System.out.println("creerRapport");
@@ -31,7 +31,7 @@ public class RapportService {
             throw new IllegalArgumentException("Scout avec ce username d'utilisateur non trouvé.");
         }
 
-        Optional<Joueur> joueurOpt = joueurRepository.findByLastNameAndName(last_name, name);
+        Optional<Joueur> joueurOpt = joueurRepository.findByLastNameAndName(firstName, name);
 
         Joueur joueur;
         if (joueurOpt.isEmpty()) {
@@ -44,13 +44,13 @@ public class RapportService {
 
 
             joueur = new Joueur();
-            joueur.setLastName(last_name);
+            joueur.setLastName(firstName);
             joueur.setName(name);
             joueur.setAge(age);
             joueur.setPosition(position);
             joueur = joueurRepository.save(joueur);
         } else {
-            if (note == null || name == null || last_name == null || scoutUsername == null || match == null || observation == null) {
+            if (note == null || name == null || firstName == null || scoutUsername == null || match == null || observation == null) {
                 throw new IllegalArgumentException("Tous les renseignements doivent être fournis : note, name, lastName, scoutUsername, match, observation.");
             }
             joueur = joueurOpt.get();

@@ -58,7 +58,7 @@ public class RapportDeScoutControllerTest {
     void testCreateReport() {
         // Prepare CreateRapportDto for the POST request
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setLast_name("Houssam");
+        createRapportDto.setFirstName("Houssam");
         createRapportDto.setName("Eddine");
         createRapportDto.setAge(22);
         createRapportDto.setPosition("ATTAQUANT");
@@ -78,7 +78,7 @@ public class RapportDeScoutControllerTest {
     @Test
     void testCreateReportWithoutScout() {
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setLast_name("Anis");
+        createRapportDto.setFirstName("Anis");
         createRapportDto.setName("Bmjk");
         createRapportDto.setAge(23);
         createRapportDto.setPosition("ATTAQUANT");
@@ -102,7 +102,7 @@ public class RapportDeScoutControllerTest {
         this.createPlayer();
         // Create a CreateRapportDto with missing 'note'
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setLast_name("ExistedPlayer");
+        createRapportDto.setFirstName("ExistedPlayer");
         createRapportDto.setName("Player");
         createRapportDto.setAge(22);
         createRapportDto.setPosition("ATTAQUANT");
@@ -124,7 +124,7 @@ public class RapportDeScoutControllerTest {
     @Test
     void testCreateRapportWithoutPlayer() {
         CreateRapportDto createRapportDto = new CreateRapportDto();
-        createRapportDto.setLast_name("NewPlayer");
+        createRapportDto.setFirstName("NewPlayer");
         createRapportDto.setName("Player");
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
