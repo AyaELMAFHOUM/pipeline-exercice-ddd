@@ -1,4 +1,4 @@
-package com.matchango.scoutingservice.infrastructure.web;
+package com.matchango.scoutingservice.infrastructure.web.excepetion;
 
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
