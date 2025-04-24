@@ -1,6 +1,6 @@
 ## 🗂️ Database Design
 
-![Database Design](./docs/mtcha.png)
+![Database Design](./docs/Design.png)
 
 ### 1. **Running PostgreSQL with Docker and Adding Scouts**
 
