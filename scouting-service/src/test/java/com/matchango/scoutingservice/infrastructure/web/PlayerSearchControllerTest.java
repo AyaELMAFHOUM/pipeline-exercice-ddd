@@ -89,7 +89,7 @@ public class PlayerSearchControllerTest {
 
     @Test
     void testSearchPlayersByAge() {
-        String expectedFirstName = "Haddouche";
+        String expectedLastName = "Haddouche";
         String expectedname = "Houssam eddine";
         int expectedAge = 20;
         String expectedPosition = "ATTAQUANT";
@@ -102,7 +102,7 @@ public class PlayerSearchControllerTest {
         List<?> players = (List<?>) response.getData();
         assertThat(players).isNotEmpty();
         Map<?, ?> actualPlayer = (Map<?, ?>) players.get(0);
-        assertThat(actualPlayer.get("firstName")).isEqualTo(expectedFirstName);
+        assertThat(actualPlayer.get("firstName")).isEqualTo(expectedLastName);
         assertThat(actualPlayer.get("name")).isEqualTo(expectedname);
         assertThat(actualPlayer.get("age")).isEqualTo(expectedAge);
         assertThat(actualPlayer.get("position")).isEqualTo(expectedPosition);

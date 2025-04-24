@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 public class CreateRapportDto {
 
-    private String firstName;
+    private String lastName;
     private String name;
     private Integer age;
     private String position;
