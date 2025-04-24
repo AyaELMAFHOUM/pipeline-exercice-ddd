@@ -1,10 +1,10 @@
 package com.matchango.scoutingservice.infrastructure.web;
 
-import com.matchango.scoutingservice.application.RapportService;
+import com.matchango.scoutingservice.application.ScoutingReportService;
 import com.matchango.scoutingservice.domain.model.Position;
 import com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
-import com.matchango.scoutingservice.infrastructure.web.dto.CreateRapportDto;
+import com.matchango.scoutingservice.infrastructure.web.dto.CreateScoutingReportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,15 +15,15 @@ import java.util.List;
 @RestController
 @RequestMapping("")
 @RequiredArgsConstructor
-public class RapportDeScoutController {
+public class ScoutingReportController {
 
-    private final RapportService rapportService;
+    private final ScoutingReportService scoutingReportService;
 
     @PostMapping("/reports")
-    public ResponseEntity<ApiResponse> createReport(@RequestBody CreateRapportDto createRapportDto) {
+    public ResponseEntity<ApiResponse> createReport(@RequestBody CreateScoutingReportDto createScoutingReportDto) {
         try {
             // TODO: Ref - move this check and throw error to Service
-            String positionString = createRapportDto.getPosition();
+            String positionString = createScoutingReportDto.getPosition();
             Position position;
             if (positionString != null) {
                 positionString = positionString.toUpperCase();
@@ -38,15 +38,15 @@ public class RapportDeScoutController {
                 position = null;
             }
 
-            rapportService.creerRapport(
-                    createRapportDto.getLastName(),
-                    createRapportDto.getName(),
-                    createRapportDto.getAge(),
+            scoutingReportService.createReport(
+                    createScoutingReportDto.getLastName(),
+                    createScoutingReportDto.getName(),
+                    createScoutingReportDto.getAge(),
                     position,
-                    createRapportDto.getScoutUsername(),
-                    createRapportDto.getMatch(),
-                    createRapportDto.getObservation(),
-                    createRapportDto.getTechnicalRating()
+                    createScoutingReportDto.getScoutUsername(),
+                    createScoutingReportDto.getMatch(),
+                    createScoutingReportDto.getObservation(),
+                    createScoutingReportDto.getTechnicalRating()
             );
 
             ApiResponse response = ApiResponse.builder()
@@ -68,7 +68,7 @@ public class RapportDeScoutController {
             @RequestParam(required = false) String position,
             @RequestParam(required = false) Integer noteMin
     ) {
-        List<PlayerWithRatingDto> result = rapportService.findPlayersWithFiltres(age, position, noteMin);
+        List<PlayerWithRatingDto> result = scoutingReportService.findPlayersWithFiltres(age, position, noteMin);
         ApiResponse response = ApiResponse.builder()
                 .status("success")
                 .message("Players fetched successfully")

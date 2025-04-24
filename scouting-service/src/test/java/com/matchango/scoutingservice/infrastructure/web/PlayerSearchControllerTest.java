@@ -5,7 +5,7 @@ import com.matchango.scoutingservice.domain.model.Position;
 import com.matchango.scoutingservice.domain.model.Report;
 import com.matchango.scoutingservice.domain.model.Scout;
 import com.matchango.scoutingservice.domain.repositories.PlayerRepository;
-import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
+import com.matchango.scoutingservice.domain.repositories.ScoutingReportRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,7 +32,7 @@ public class PlayerSearchControllerTest {
     @Autowired
     private TestRestTemplate restTemplate;
     @Autowired
-    private RapportDeScoutRepository rapportDeScoutRepository;
+    private ScoutingReportRepository scoutingReportRepository;
     @Autowired
     private PlayerRepository joueurRepository;
 
@@ -41,7 +41,7 @@ public class PlayerSearchControllerTest {
     void setUp() {
 
         // Clean database and insert a Scout
-        rapportDeScoutRepository.deleteAll();
+        scoutingReportRepository.deleteAll();
         joueurRepository.deleteAll();
         scoutRepository.deleteAll();
 
@@ -68,13 +68,13 @@ public class PlayerSearchControllerTest {
         report_0.setMatch("PSG VS NM");
         report_0.setTechnicalRating(50);
         report_0.setPlayer(player_0);
-        rapportDeScoutRepository.save(report_0);
+        scoutingReportRepository.save(report_0);
 
         Report report_1 = new Report();
         report_1.setScout(scout);
         report_1.setMatch("PSG VS MU");
         report_1.setPlayer(player_1);
-        rapportDeScoutRepository.save(report_1);
+        scoutingReportRepository.save(report_1);
     }
 
     @Test

@@ -1,12 +1,11 @@
 package com.matchango.scoutingservice.infrastructure.web.dto;
-import com.matchango.scoutingservice.domain.model.Position;
 import lombok.Getter;
 import lombok.Setter;
 
 
 @Getter
 @Setter
-public class CreateRapportDto {
+public class CreateScoutingReportDto {
 
     private String lastName;
     private String name;

@@ -3,7 +3,7 @@ package com.matchango.scoutingservice.application;
 import com.matchango.scoutingservice.domain.model.*;
 import com.matchango.scoutingservice.domain.repositories.PlayerRepository;
 import com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto;
-import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
+import com.matchango.scoutingservice.domain.repositories.ScoutingReportRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,16 +16,15 @@ import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
-public class RapportService {
+public class ScoutingReportService {
 
     private final PlayerRepository playerRepository;
-    private final RapportDeScoutRepository rapportRepository;
+    private final ScoutingReportRepository scoutingReportRepository;
     private final ScoutRepository scoutRepository;
 
-    public void creerRapport(String firstName, String name, Integer age, Position position,
+    public void createReport(String firstName, String name, Integer age, Position position,
                              String scoutUsername, String match, String observation, Integer technicalRating) {
 
-        System.out.println("creerRapport");
         Optional<Scout> scoutOpt = scoutRepository.findByUsername(scoutUsername);
         if (scoutOpt.isEmpty()) {
             throw new IllegalArgumentException("Scout avec ce username d'utilisateur non trouvé.");
@@ -65,12 +64,12 @@ public class RapportService {
         rapport.setTechnicalRating(technicalRating);
 
         try {
-            rapportRepository.save(rapport);
+            scoutingReportRepository.save(rapport);
         } catch (Exception e) {
             throw new RuntimeException("An error occurred while creating the report.");
         }
     }
-    public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Integer noteMin) {
+    public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Integer minRating) {
         final Position position;
 
         if (positionStr != null) {
@@ -83,13 +82,13 @@ public class RapportService {
             position = null;
         }
 
-        List<PlayerWithRatingDto> allPlayers = rapportRepository.findAllPlayersWithAvgNote();
+        List<PlayerWithRatingDto> allPlayers = scoutingReportRepository.findAllPlayersWithAvgRating();
 
         return allPlayers.stream()
                 .filter(player ->
                         (age == null || player.getAge().equals(age)) &&
                                 (position == null || player.getPosition() == position) &&
-                                (noteMin == null || (player.getAverageRating() != null && player.getAverageRating() >= noteMin))
+                                (minRating == null || (player.getAverageRating() != null && player.getAverageRating() >= minRating))
                 )
                 .collect(Collectors.toList());
     }
