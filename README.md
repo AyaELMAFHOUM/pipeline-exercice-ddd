@@ -121,7 +121,7 @@ Search for players based on filters.
   {
     "status": "success",
     "message": "Players found",
-    "data": []
+    "data": [{players}...]
   }
   ```
 
