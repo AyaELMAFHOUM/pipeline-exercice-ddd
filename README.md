@@ -25,7 +25,7 @@ After setting up the database and adding the scouts, follow these steps to run t
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/imadovetch/Exercice-DDD/ Demo-test
-   cd Demo-test
+   cd Demo-test/scouting-service
    ```
 
 2. **Run the Spring Boot application:**
