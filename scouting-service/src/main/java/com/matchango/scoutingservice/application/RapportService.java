@@ -62,7 +62,7 @@ public class RapportService {
         rapport.setScout(scoutOpt.get());
         rapport.setMatch(match);
         rapport.setObservation(observation);
-        rapport.setNoteTechnique(note);
+        rapport.setTechnicalRating(note);
 
         try {
             rapportRepository.save(rapport);

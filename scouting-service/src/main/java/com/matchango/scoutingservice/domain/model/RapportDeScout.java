@@ -17,7 +17,7 @@ public class RapportDeScout {
     @ManyToOne
     private Scout scout;
 
-    private int noteTechnique;
+    private int technicalRating;
 
     private String observation;
 

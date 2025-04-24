@@ -66,7 +66,7 @@ public class PlayerSearchControllerTest {
         RapportDeScout rapportDeScout_0 = new RapportDeScout();
         rapportDeScout_0.setScout(scout);
         rapportDeScout_0.setMatch("PSG VS NM");
-        rapportDeScout_0.setNoteTechnique(50);
+        rapportDeScout_0.setTechnicalRating(50);
         rapportDeScout_0.setJoueur(joueur_0);
         rapportDeScoutRepository.save(rapportDeScout_0);
 
