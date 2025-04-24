@@ -9,10 +9,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class JoueurWithNoteDto {
-    private String nom;
-    private String prenom;
+public class PlayerWithRatingDto {
+    private String lastName;
+    private String firstName;
     private Integer age;
     private Position position;
-    private Double noteMoyenne;
+    private Double averageRating;
 }

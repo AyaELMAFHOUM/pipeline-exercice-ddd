@@ -5,14 +5,13 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Joueur {
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String nom;
-    private String prenom;
+    private String lastName;
+    private String firstName;
     private int age;
     @Enumerated(EnumType.STRING)
     private Position position;
