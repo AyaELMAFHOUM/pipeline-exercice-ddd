@@ -58,7 +58,7 @@ public class ReportControllerTest {
         // Prepare CreateRapportDto for the POST request
         CreateScoutingReportDto createScoutingReportDto = new CreateScoutingReportDto();
         createScoutingReportDto.setLastName("Houssam");
-        createScoutingReportDto.setName("Eddine");
+        createScoutingReportDto.setFirstName("Eddine");
         createScoutingReportDto.setAge(22);
         createScoutingReportDto.setPosition("ATTAQUANT");
         createScoutingReportDto.setScoutUsername("houssam1337");
@@ -78,7 +78,7 @@ public class ReportControllerTest {
     void testCreateReportWithoutScout() {
         CreateScoutingReportDto createScoutingReportDto = new CreateScoutingReportDto();
         createScoutingReportDto.setLastName("Anis");
-        createScoutingReportDto.setName("Bmjk");
+        createScoutingReportDto.setFirstName("Bmjk");
         createScoutingReportDto.setAge(23);
         createScoutingReportDto.setPosition("ATTAQUANT");
         createScoutingReportDto.setScoutUsername("nonExistentScout");
@@ -102,7 +102,7 @@ public class ReportControllerTest {
         // Create a CreateRapportDto with missing 'technicalRating'
         CreateScoutingReportDto createScoutingReportDto = new CreateScoutingReportDto();
         createScoutingReportDto.setLastName("ExistedPlayer");
-        createScoutingReportDto.setName("Player");
+        createScoutingReportDto.setFirstName("Player");
         createScoutingReportDto.setAge(22);
         createScoutingReportDto.setPosition("ATTAQUANT");
         createScoutingReportDto.setScoutUsername("houssam1337");
@@ -124,7 +124,7 @@ public class ReportControllerTest {
     void testCreateRapportWithoutPlayer() {
         CreateScoutingReportDto createScoutingReportDto = new CreateScoutingReportDto();
         createScoutingReportDto.setLastName("NewPlayer");
-        createScoutingReportDto.setName("Player");
+        createScoutingReportDto.setFirstName("Player");
         createScoutingReportDto.setScoutUsername("houssam1337");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");

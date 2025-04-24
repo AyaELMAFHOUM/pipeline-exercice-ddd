@@ -8,7 +8,7 @@ import lombok.Setter;
 public class CreateScoutingReportDto {
 
     private String lastName;
-    private String name;
+    private String firstName;
     private Integer age;
     private String position;
     private String scoutUsername;

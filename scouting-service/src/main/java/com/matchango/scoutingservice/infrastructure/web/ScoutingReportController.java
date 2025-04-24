@@ -40,7 +40,7 @@ public class ScoutingReportController {
 
             scoutingReportService.createReport(
                     createScoutingReportDto.getLastName(),
-                    createScoutingReportDto.getName(),
+                    createScoutingReportDto.getFirstName(),
                     createScoutingReportDto.getAge(),
                     position,
                     createScoutingReportDto.getScoutUsername(),
