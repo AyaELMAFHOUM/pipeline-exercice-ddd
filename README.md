@@ -41,27 +41,103 @@ After setting up the database and adding the scouts, follow these steps to run t
 > ⚠️ **Important:**  
 > - If the player is being reported for the **first time**, you must provide:
 >   - `age`
->   - `position` (must be a valid enum value, e.g., `ATTAQUANT`, `DEFENSEUR`, etc.)
+>   - `position` (must be a valid enum value, e.g., `FORWARD`, `DEFENDER`, etc.)
 > 
 > - The scout must be registered in the database in order to submit a report.  
->  Since there is no login system yet, you need to manually create the scout first using the command below.
+> Since there is no login system yet, you need to manually create the scout first using the command below.
 Once the scouts are added to the database, they can submit reports using the `/reports` endpoint. Here’s an example `curl` request to submit a report:
 
 ```bash
 curl -X POST http://localhost:8080/reports \
   -H "Content-Type: application/json" \
   -d '{
-    "nom": "Mbappé",
-    "prenom": "Kylian",
+    "lastName": "Mbappé",
+    "firstName": "Kylian",
     "age": 25,
-    "position": "ATTAQUANT",
-    "note": 100,
-    "observation": "Très bon finisseur",
+    "position": "FORWARD",
+    "scoutUsername": "Aya",
     "match": "PSG vs OM",
-    "scoutUsername": "Aya"
+    "observation": "Great finisher",
+    "technicalRating": 100
   }' | jq .
 ```
 
 ---
 
+### 🔗 **Swagger API Documentation**
+
+Once the Spring Boot application is running, you can access the Swagger UI to explore and test the available API endpoints:
+
+[Swagger UI](http://localhost:8080/swagger-ui/index.html) 
+
+This will open an interactive API documentation interface where you can try out the endpoints.
+
+---
+
+### 📝 **API Endpoints**
+
+#### **POST /reports**
+Creates a new scouting report for a player.
+
+**Request Body Example:**
+```json
+{
+  "lastName": "Mbappé",
+  "firstName": "Kylian",
+  "age": 25,
+  "position": "FORWARD",
+  "scoutUsername": "Aya",
+  "match": "PSG vs OM",
+  "observation": "Great finisher",
+  "technicalRating": 100
+}
+```
+
+**Responses:**
+- **200 OK**  
+  Example:
+  ```json
+  {
+    "status": "success",
+    "message": "Report created successfully",
+    "data": {}
+  }
+  ```
+
+---
+
+#### **GET /players/search**
+Search for players based on filters.
+
+**Parameters:**
+- `age` (optional): The player's age (integer).
+- `position` (optional): The player's position (string).
+- `minRating` (optional): Minimum technical rating (number).
+
+**Responses:**
+- **200 OK**  
+  Example:
+  ```json
+  {
+    "status": "success",
+    "message": "Players found",
+    "data": []
+  }
+  ```
+
+---
+
+### 📊 **Schemas**
+
+#### **CreateScoutingReportDto**
+- `lastName`: string, [2, 15] characters
+- `firstName`: string, [2, 15] characters
+- `age`: integer, [0, 50]
+- `position`: string (valid position, e.g., `FORWARD`, `DEFENDER`)
+- `scoutUsername`: string, >= 1 character
+- `match`: string, >= 1 character
+- `observation`: string, >= 1 character
+- `technicalRating`: number, [0, 100]
+
+---
 
