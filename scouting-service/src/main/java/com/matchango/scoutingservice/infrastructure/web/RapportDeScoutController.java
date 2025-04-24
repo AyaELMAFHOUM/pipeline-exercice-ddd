@@ -2,7 +2,7 @@ package com.matchango.scoutingservice.infrastructure.web;
 
 import com.matchango.scoutingservice.application.RapportService;
 import com.matchango.scoutingservice.domain.model.Position;
-import com.matchango.scoutingservice.infrastructure.web.dto.JoueurWithNoteDto;
+import com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
 import com.matchango.scoutingservice.infrastructure.web.dto.CreateRapportDto;
 import lombok.RequiredArgsConstructor;
@@ -68,7 +68,7 @@ public class RapportDeScoutController {
             @RequestParam(required = false) String position,
             @RequestParam(required = false) Integer noteMin
     ) {
-        List<JoueurWithNoteDto> result = rapportService.chercherJoueursAvecFiltres(age, position, noteMin);
+        List<PlayerWithRatingDto> result = rapportService.findPlayersWithFiltres(age, position, noteMin);
         ApiResponse response = ApiResponse.builder()
                 .status("success")
                 .message("Players fetched successfully")

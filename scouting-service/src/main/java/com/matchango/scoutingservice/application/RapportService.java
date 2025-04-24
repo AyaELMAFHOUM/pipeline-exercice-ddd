@@ -1,8 +1,8 @@
 package com.matchango.scoutingservice.application;
 
 import com.matchango.scoutingservice.domain.model.*;
-import com.matchango.scoutingservice.domain.repositories.JoueurRepository;
-import com.matchango.scoutingservice.infrastructure.web.dto.JoueurWithNoteDto;
+import com.matchango.scoutingservice.domain.repositories.PlayerRepository;
+import com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto;
 import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RapportService {
 
-    private final JoueurRepository joueurRepository;
+    private final PlayerRepository playerRepository;
     private final RapportDeScoutRepository rapportRepository;
     private final ScoutRepository scoutRepository;
 
@@ -31,33 +31,33 @@ public class RapportService {
             throw new IllegalArgumentException("Scout avec ce username d'utilisateur non trouvé.");
         }
 
-        Optional<Joueur> joueurOpt = joueurRepository.findByLastNameAndName(firstName, name);
+        Optional<Player> playerOpt = playerRepository.findByLastNameAndName(firstName, name);
 
-        Joueur joueur;
-        if (joueurOpt.isEmpty()) {
+        Player player;
+        if (playerOpt.isEmpty()) {
             if (scoutUsername == null) {
                 throw new IllegalArgumentException("Scout username non valide.");
             }
             if (age == null || technicalRating == null || name == null || match == null || position == null) {
-                throw new IllegalArgumentException("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
+                throw new IllegalArgumentException("player n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
             }
 
 
-            joueur = new Joueur();
-            joueur.setLastName(firstName);
-            joueur.setName(name);
-            joueur.setAge(age);
-            joueur.setPosition(position);
-            joueur = joueurRepository.save(joueur);
+            player = new Player();
+            player.setLastName(firstName);
+            player.setName(name);
+            player.setAge(age);
+            player.setPosition(position);
+            player = playerRepository.save(player);
         } else {
             if (technicalRating == null || name == null || firstName == null || scoutUsername == null || match == null || observation == null) {
                 throw new IllegalArgumentException("Tous les renseignements doivent être fournis : technicalRating, name, lastName, scoutUsername, match, observation.");
             }
-            joueur = joueurOpt.get();
+            player = playerOpt.get();
         }
 
-        RapportDeScout rapport = new RapportDeScout();
-        rapport.setJoueur(joueur);
+        Report rapport = new Report();
+        rapport.setPlayer(player);
         long id = scoutOpt.get().getId();
         rapport.setScout(scoutOpt.get());
         rapport.setMatch(match);
@@ -70,7 +70,7 @@ public class RapportService {
             throw new RuntimeException("An error occurred while creating the report.");
         }
     }
-    public List<JoueurWithNoteDto> chercherJoueursAvecFiltres(Integer age, String positionStr, Integer noteMin) {
+    public List<PlayerWithRatingDto> findPlayersWithFiltres(Integer age, String positionStr, Integer noteMin) {
         final Position position;
 
         if (positionStr != null) {
@@ -83,13 +83,13 @@ public class RapportService {
             position = null;
         }
 
-        List<JoueurWithNoteDto> allPlayers = rapportRepository.findAllJoueursWithAvgNote();
+        List<PlayerWithRatingDto> allPlayers = rapportRepository.findAllPlayersWithAvgNote();
 
         return allPlayers.stream()
-                .filter(joueur ->
-                        (age == null || joueur.getAge().equals(age)) &&
-                                (position == null || joueur.getPosition() == position) &&
-                                (noteMin == null || (joueur.getNoteMoyenne() != null && joueur.getNoteMoyenne() >= noteMin))
+                .filter(player ->
+                        (age == null || player.getAge().equals(age)) &&
+                                (position == null || player.getPosition() == position) &&
+                                (noteMin == null || (player.getAverageRating() != null && player.getAverageRating() >= noteMin))
                 )
                 .collect(Collectors.toList());
     }

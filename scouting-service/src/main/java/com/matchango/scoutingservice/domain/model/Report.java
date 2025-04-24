@@ -5,14 +5,14 @@ import lombok.*;
 
 @Entity
 @Data
-public class RapportDeScout {
+public class Report {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private Joueur joueur;
+    private Player player;
 
     @ManyToOne
     private Scout scout;

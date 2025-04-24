@@ -1,10 +1,10 @@
 package com.matchango.scoutingservice.infrastructure.web;
 
-import com.matchango.scoutingservice.domain.model.Joueur;
+import com.matchango.scoutingservice.domain.model.Player;
 import com.matchango.scoutingservice.domain.model.Position;
-import com.matchango.scoutingservice.domain.model.RapportDeScout;
+import com.matchango.scoutingservice.domain.model.Report;
 import com.matchango.scoutingservice.domain.model.Scout;
-import com.matchango.scoutingservice.domain.repositories.JoueurRepository;
+import com.matchango.scoutingservice.domain.repositories.PlayerRepository;
 import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import com.matchango.scoutingservice.infrastructure.web.dto.ApiResponse;
@@ -34,7 +34,7 @@ public class PlayerSearchControllerTest {
     @Autowired
     private RapportDeScoutRepository rapportDeScoutRepository;
     @Autowired
-    private JoueurRepository joueurRepository;
+    private PlayerRepository joueurRepository;
 
 
     @BeforeEach
@@ -45,36 +45,36 @@ public class PlayerSearchControllerTest {
         joueurRepository.deleteAll();
         scoutRepository.deleteAll();
 
-        Joueur joueur_0 = new Joueur();
-        joueur_0.setLastName("Haddouche");
-        joueur_0.setName("Houssam eddine");
-        joueur_0.setAge(20);
-        joueur_0.setPosition(Position.ATTAQUANT);
-        joueurRepository.save(joueur_0);
+        Player player_0 = new Player();
+        player_0.setLastName("Haddouche");
+        player_0.setName("Houssam eddine");
+        player_0.setAge(20);
+        player_0.setPosition(Position.ATTAQUANT);
+        joueurRepository.save(player_0);
 
-        Joueur joueur_1 = new Joueur();
-        joueur_1.setLastName("idk");
-        joueur_1.setName("Anis");
-        joueur_1.setAge(27);
-        joueur_1.setPosition(Position.MILIEU);
-        joueurRepository.save(joueur_1);
+        Player player_1 = new Player();
+        player_1.setLastName("idk");
+        player_1.setName("Anis");
+        player_1.setAge(27);
+        player_1.setPosition(Position.MILIEU);
+        joueurRepository.save(player_1);
 
         Scout scout = new Scout();
         scout.setUsername("houssam1337");
         scoutRepository.save(scout);
 
-        RapportDeScout rapportDeScout_0 = new RapportDeScout();
-        rapportDeScout_0.setScout(scout);
-        rapportDeScout_0.setMatch("PSG VS NM");
-        rapportDeScout_0.setTechnicalRating(50);
-        rapportDeScout_0.setJoueur(joueur_0);
-        rapportDeScoutRepository.save(rapportDeScout_0);
+        Report report_0 = new Report();
+        report_0.setScout(scout);
+        report_0.setMatch("PSG VS NM");
+        report_0.setTechnicalRating(50);
+        report_0.setPlayer(player_0);
+        rapportDeScoutRepository.save(report_0);
 
-        RapportDeScout rapportDeScout_1 = new RapportDeScout();
-        rapportDeScout_1.setScout(scout);
-        rapportDeScout_1.setMatch("PSG VS MU");
-        rapportDeScout_1.setJoueur(joueur_1);
-        rapportDeScoutRepository.save(rapportDeScout_1);
+        Report report_1 = new Report();
+        report_1.setScout(scout);
+        report_1.setMatch("PSG VS MU");
+        report_1.setPlayer(player_1);
+        rapportDeScoutRepository.save(report_1);
     }
 
     @Test
@@ -106,7 +106,7 @@ public class PlayerSearchControllerTest {
         assertThat(actualPlayer.get("name")).isEqualTo(expectedname);
         assertThat(actualPlayer.get("age")).isEqualTo(expectedAge);
         assertThat(actualPlayer.get("position")).isEqualTo(expectedPosition);
-        assertThat(actualPlayer.get("noteMoyenne")).isEqualTo(expectedNote);
+        assertThat(actualPlayer.get("averageRating")).isEqualTo(expectedNote);
     }
 
 }

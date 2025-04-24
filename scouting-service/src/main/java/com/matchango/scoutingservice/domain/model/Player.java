@@ -5,7 +5,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Joueur {
+public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

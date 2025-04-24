@@ -1,9 +1,8 @@
 package com.matchango.scoutingservice.infrastructure.web;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.matchango.scoutingservice.domain.model.Joueur;
+import com.matchango.scoutingservice.domain.model.Player;
 import com.matchango.scoutingservice.domain.model.Scout;
-import com.matchango.scoutingservice.domain.repositories.JoueurRepository;
+import com.matchango.scoutingservice.domain.repositories.PlayerRepository;
 import com.matchango.scoutingservice.domain.repositories.RapportDeScoutRepository;
 import com.matchango.scoutingservice.domain.repositories.ScoutRepository;
 import com.matchango.scoutingservice.infrastructure.web.dto.CreateRapportDto;
@@ -18,7 +17,7 @@ import org.springframework.boot.test.web.server.LocalServerPort;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class RapportDeScoutControllerTest {
+public class ReportControllerTest {
 
     @LocalServerPort
     private int port;
@@ -33,7 +32,7 @@ public class RapportDeScoutControllerTest {
     @Autowired
     private RapportDeScoutRepository rapportDeScoutRepository;
     @Autowired
-    private JoueurRepository joueurRepository;
+    private PlayerRepository joueurRepository;
 
     @BeforeEach
     void setUp() {
@@ -48,10 +47,10 @@ public class RapportDeScoutControllerTest {
         scoutRepository.save(scout);
     }
     void createPlayer(){
-        Joueur joueur = new Joueur();
-        joueur.setLastName("ExistedPlayer");
-        joueur.setName("Player");
-        joueurRepository.save(joueur);
+        Player player = new Player();
+        player.setLastName("ExistedPlayer");
+        player.setName("Player");
+        joueurRepository.save(player);
     }
 
     @Test
@@ -134,6 +133,6 @@ public class RapportDeScoutControllerTest {
         ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).isEqualTo("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
+        assertThat(response.getMessage()).isEqualTo("player n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
     }
 }
