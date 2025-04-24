@@ -23,7 +23,7 @@ public class RapportService {
     private final ScoutRepository scoutRepository;
 
     public void creerRapport(String firstName, String name, Integer age, Position position,
-                             String scoutUsername, String match, String observation, Integer note) {
+                             String scoutUsername, String match, String observation, Integer technicalRating) {
 
         System.out.println("creerRapport");
         Optional<Scout> scoutOpt = scoutRepository.findByUsername(scoutUsername);
@@ -38,7 +38,7 @@ public class RapportService {
             if (scoutUsername == null) {
                 throw new IllegalArgumentException("Scout username non valide.");
             }
-            if (age == null || note == null || name == null || match == null || position == null) {
+            if (age == null || technicalRating == null || name == null || match == null || position == null) {
                 throw new IllegalArgumentException("Le joueur n'existe pas. Merci de fournir l'âge, la position, et les autres données.");
             }
 
@@ -50,8 +50,8 @@ public class RapportService {
             joueur.setPosition(position);
             joueur = joueurRepository.save(joueur);
         } else {
-            if (note == null || name == null || firstName == null || scoutUsername == null || match == null || observation == null) {
-                throw new IllegalArgumentException("Tous les renseignements doivent être fournis : note, name, lastName, scoutUsername, match, observation.");
+            if (technicalRating == null || name == null || firstName == null || scoutUsername == null || match == null || observation == null) {
+                throw new IllegalArgumentException("Tous les renseignements doivent être fournis : technicalRating, name, lastName, scoutUsername, match, observation.");
             }
             joueur = joueurOpt.get();
         }
@@ -62,7 +62,7 @@ public class RapportService {
         rapport.setScout(scoutOpt.get());
         rapport.setMatch(match);
         rapport.setObservation(observation);
-        rapport.setTechnicalRating(note);
+        rapport.setTechnicalRating(technicalRating);
 
         try {
             rapportRepository.save(rapport);

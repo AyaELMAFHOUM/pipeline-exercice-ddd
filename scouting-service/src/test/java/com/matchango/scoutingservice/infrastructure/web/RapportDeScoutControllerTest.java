@@ -65,7 +65,7 @@ public class RapportDeScoutControllerTest {
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");
-        createRapportDto.setNote(8);
+        createRapportDto.setTechnicalRating(8);
 
         // Send POST request to /reports
         String url = "http://localhost:" + port + "/reports";
@@ -85,7 +85,7 @@ public class RapportDeScoutControllerTest {
         createRapportDto.setScoutUsername("nonExistentScout");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");
-        createRapportDto.setNote(8);
+        createRapportDto.setTechnicalRating(8);
 
         // Send POST request to /reports
         String url = "http://localhost:" + port + "/reports";
@@ -100,7 +100,7 @@ public class RapportDeScoutControllerTest {
     void testCreateReportWithMissingFields() {
         // Add player to the TestDB first
         this.createPlayer();
-        // Create a CreateRapportDto with missing 'note'
+        // Create a CreateRapportDto with missing 'technicalRating'
         CreateRapportDto createRapportDto = new CreateRapportDto();
         createRapportDto.setLastName("ExistedPlayer");
         createRapportDto.setName("Player");
@@ -109,17 +109,17 @@ public class RapportDeScoutControllerTest {
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");
-        // 'note' is not set
+        // 'technicalRating' is not set
 
         // Send POST request to /reports
         String url = "http://localhost:" + port + "/reports";
         ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
         System.out.println(response);
 
-        // Assertions: Expecting a BAD_REQUEST response since 'note' is missing
+        // Assertions: Expecting a BAD_REQUEST response since 'technicalRating' is missing
         assertThat(response).isNotNull();
         assertThat(response.getStatus()).isEqualTo("error");
-        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : note, name, lastName, scoutUsername, match, observation");
+        assertThat(response.getMessage()).contains("Tous les renseignements doivent être fournis : technicalRating, name, lastName, scoutUsername, match, observation");
     }
     @Test
     void testCreateRapportWithoutPlayer() {
@@ -129,7 +129,7 @@ public class RapportDeScoutControllerTest {
         createRapportDto.setScoutUsername("houssam1337");
         createRapportDto.setMatch("Match 1");
         createRapportDto.setObservation("Good performance");
-        createRapportDto.setNote(9);
+        createRapportDto.setTechnicalRating(9);
         String url = "http://localhost:" + port + "/reports";
         ApiResponse response = restTemplate.postForObject(url, createRapportDto, ApiResponse.class);
         assertThat(response).isNotNull();

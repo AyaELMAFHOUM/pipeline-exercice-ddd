@@ -46,7 +46,7 @@ public class RapportDeScoutController {
                     createRapportDto.getScoutUsername(),
                     createRapportDto.getMatch(),
                     createRapportDto.getObservation(),
-                    createRapportDto.getNote()
+                    createRapportDto.getTechnicalRating()
             );
 
             ApiResponse response = ApiResponse.builder()
