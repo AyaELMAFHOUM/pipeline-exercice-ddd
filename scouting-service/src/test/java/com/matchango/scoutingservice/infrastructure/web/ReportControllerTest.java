@@ -49,7 +49,7 @@ public class ReportControllerTest {
     void createPlayer(){
         Player player = new Player();
         player.setLastName("ExistedPlayer");
-        player.setName("Player");
+        player.setFirstName("Player");
         joueurRepository.save(player);
     }
 

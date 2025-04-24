@@ -30,7 +30,7 @@ public class ScoutingReportService {
             throw new IllegalArgumentException("Scout avec ce username d'utilisateur non trouvé.");
         }
 
-        Optional<Player> playerOpt = playerRepository.findByLastNameAndName(firstName, name);
+        Optional<Player> playerOpt = playerRepository.findByLastNameAndFirstName(firstName, name);
 
         Player player;
         if (playerOpt.isEmpty()) {
@@ -44,7 +44,7 @@ public class ScoutingReportService {
 
             player = new Player();
             player.setLastName(firstName);
-            player.setName(name);
+            player.setFirstName(name);
             player.setAge(age);
             player.setPosition(position);
             player = playerRepository.save(player);

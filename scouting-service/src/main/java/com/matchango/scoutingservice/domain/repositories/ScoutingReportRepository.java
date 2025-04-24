@@ -10,9 +10,9 @@ import java.util.List;
 
 public interface ScoutingReportRepository extends JpaRepository<Report, Long> {
     @Query("SELECT new com.matchango.scoutingservice.infrastructure.web.dto.PlayerWithRatingDto(" +
-            "j.lastName, j.name, j.age, j.position, AVG(r.technicalRating)) " +
+            "j.lastName, j.firstName, j.age, j.position, AVG(r.technicalRating)) " +
             "FROM Report r JOIN r.player j " +
-            "GROUP BY j.id, j.lastName, j.name, j.age, j.position")
+            "GROUP BY j.id, j.lastName, j.firstName, j.age, j.position")
     List<PlayerWithRatingDto> findAllPlayersWithAvgRating();
 
 }

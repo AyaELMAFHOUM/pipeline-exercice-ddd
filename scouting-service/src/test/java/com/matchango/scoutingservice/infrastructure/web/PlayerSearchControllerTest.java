@@ -47,14 +47,14 @@ public class PlayerSearchControllerTest {
 
         Player player_0 = new Player();
         player_0.setLastName("Haddouche");
-        player_0.setName("Houssam eddine");
+        player_0.setFirstName("Houssam eddine");
         player_0.setAge(20);
         player_0.setPosition(Position.ATTAQUANT);
         joueurRepository.save(player_0);
 
         Player player_1 = new Player();
         player_1.setLastName("idk");
-        player_1.setName("Anis");
+        player_1.setFirstName("Anis");
         player_1.setAge(27);
         player_1.setPosition(Position.MILIEU);
         joueurRepository.save(player_1);

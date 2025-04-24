@@ -11,7 +11,7 @@ public class Player {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String lastName;
-    private String name;
+    private String firstName;
     private int age;
     @Enumerated(EnumType.STRING)
     private Position position;
