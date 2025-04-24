@@ -66,9 +66,9 @@ public class ScoutingReportController {
     public ResponseEntity<ApiResponse> searchPlayers(
             @RequestParam(required = false) Integer age,
             @RequestParam(required = false) String position,
-            @RequestParam(required = false) Integer noteMin
+            @RequestParam(required = false) Integer minRating
     ) {
-        List<PlayerWithRatingDto> result = scoutingReportService.findPlayersWithFiltres(age, position, noteMin);
+        List<PlayerWithRatingDto> result = scoutingReportService.findPlayersWithFiltres(age, position, minRating);
         ApiResponse response = ApiResponse.builder()
                 .status("success")
                 .message("Players fetched successfully")

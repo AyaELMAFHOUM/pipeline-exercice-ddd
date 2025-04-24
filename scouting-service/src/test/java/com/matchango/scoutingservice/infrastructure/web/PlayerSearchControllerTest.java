@@ -49,14 +49,14 @@ public class PlayerSearchControllerTest {
         player_0.setLastName("Haddouche");
         player_0.setFirstName("Houssam eddine");
         player_0.setAge(20);
-        player_0.setPosition(Position.ATTAQUANT);
+        player_0.setPosition(Position.FORWARD);
         joueurRepository.save(player_0);
 
         Player player_1 = new Player();
         player_1.setLastName("idk");
         player_1.setFirstName("Anis");
         player_1.setAge(27);
-        player_1.setPosition(Position.MILIEU);
+        player_1.setPosition(Position.MIDFIELDER);
         joueurRepository.save(player_1);
 
         Scout scout = new Scout();
@@ -92,7 +92,7 @@ public class PlayerSearchControllerTest {
         String expectedLastName = "Haddouche";
         String expectedname = "Houssam eddine";
         int expectedAge = 20;
-        String expectedPosition = "ATTAQUANT";
+        String expectedPosition = "FORWARD";
         double expectedNote = 50.0;
         String url = "http://localhost:" + port + "/players/search?age=20";
         ApiResponse response = restTemplate.getForObject(url, ApiResponse.class);

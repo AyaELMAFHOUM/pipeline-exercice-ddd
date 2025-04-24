@@ -60,7 +60,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setLastName("Houssam");
         createScoutingReportDto.setFirstName("Eddine");
         createScoutingReportDto.setAge(22);
-        createScoutingReportDto.setPosition("ATTAQUANT");
+        createScoutingReportDto.setPosition("FORWARD");
         createScoutingReportDto.setScoutUsername("houssam1337");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
@@ -80,7 +80,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setLastName("Anis");
         createScoutingReportDto.setFirstName("Bmjk");
         createScoutingReportDto.setAge(23);
-        createScoutingReportDto.setPosition("ATTAQUANT");
+        createScoutingReportDto.setPosition("FORWARD");
         createScoutingReportDto.setScoutUsername("nonExistentScout");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
@@ -104,7 +104,7 @@ public class ReportControllerTest {
         createScoutingReportDto.setLastName("ExistedPlayer");
         createScoutingReportDto.setFirstName("Player");
         createScoutingReportDto.setAge(22);
-        createScoutingReportDto.setPosition("ATTAQUANT");
+        createScoutingReportDto.setPosition("FORWARD");
         createScoutingReportDto.setScoutUsername("houssam1337");
         createScoutingReportDto.setMatch("Match 1");
         createScoutingReportDto.setObservation("Good performance");
