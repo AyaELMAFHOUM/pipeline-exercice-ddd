@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '17'
-          distribution: 'adoptopenjdk'  # Utilise OpenJDK 17
+          distribution: 'adoptium'  # Utilise OpenJDK 17
 
       - name: Build with Maven
         run: mvn clean install -DskipTests  # Compile et crée le JAR sans exécuter les tests
