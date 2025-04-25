@@ -20,7 +20,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           java-version: 17
-          distribution: adoptium  # Utilisez 'adoptium' pour la distribution
+          distribution: temurin #Utilisez 'adoptium' pour la distribution
           java-package: jdk
           architecture: x64
           check-latest: false
