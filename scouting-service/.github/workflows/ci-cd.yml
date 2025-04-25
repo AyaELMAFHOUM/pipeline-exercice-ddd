@@ -1,0 +1,74 @@
+name: Spring Boot CI/CD Pipeline with Docker Compose
+
+on:
+  push:
+    branches:
+      - main  # Le workflow sera déclenché lors d'un push sur la branche 'main'
+  pull_request:
+    branches:
+      - main  # Le workflow sera également déclenché lors d'une PR vers 'main'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest  # Utilise un environnement Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Récupère le code source
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adoptium'  # Utilise OpenJDK 17
+
+      - name: Build with Maven
+        run: mvn clean install -DskipTests  # Compile et crée le JAR sans exécuter les tests
+
+      - name: Build Docker images using Docker Compose
+        run: |
+          docker-compose -f docker-compose.yaml build  # Construit les images Docker avec Docker Compose
+
+  test:
+    runs-on: ubuntu-latest  # Utilise un environnement Ubuntu
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Récupère le code source
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v2
+        with:
+          java-version: '17'
+          distribution: 'adoptopenjdk'  # Utilise OpenJDK 17
+
+      - name: Run unit tests with Maven
+        run: mvn test  # Exécute les tests unitaires
+
+  deploy:
+    runs-on: ubuntu-latest  # Utilise un environnement Ubuntu
+    needs: [build, test]  # Attends que les jobs build et test réussissent
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2  # Récupère le code source
+
+      - name: Set up Docker
+        run: sudo apt-get install docker.io docker-compose  # Installe Docker et Docker Compose si ce n'est pas déjà fait
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}  # Nom d'utilisateur Docker Hub dans les secrets GitHub
+          password: ${{ secrets.DOCKER_PASSWORD }}  # Mot de passe Docker Hub dans les secrets GitHub
+
+      - name: Build and start containers using Docker Compose
+        run: |
+          docker-compose -f docker-compose.yaml up -d  # Lance les services en arrière-plan
+
+      - name: Run integration tests
+        run: mvn verify -DskipTests  # Exécute les tests d'intégration pour vérifier le bon fonctionnement du déploiement
+
+      - name: Push Docker images to Docker Hub
+        run: |
+          docker-compose -f docker-compose.yaml push  # Pousse les images Docker vers Docker Hub
