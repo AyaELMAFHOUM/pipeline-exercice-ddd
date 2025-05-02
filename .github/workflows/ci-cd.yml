@@ -46,34 +46,26 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven
 
-      - name: Clone Exercice-DDD repository
-        run: |
-          git clone https://github.com/imadovetch/Exercice-DDD.git
-          ls -al Exercice-DDD
-          ls -R Exercice-DDD
-
       - name: Build with Maven
         run: |
-          cd Exercice-DDD/scouting-service
-          mvn clean verify
+          mvn -f scouting-service/pom.xml clean verify
 
       - name: SonarQube Analysis
         env:
           SONAR_TOKEN: ${{ secrets.TOKEN_GITHUB }}
         run: |
-          cd Exercice-DDD/scouting-service
-          mvn sonar:sonar \
+          mvn -f scouting-service/pom.xml sonar:sonar \
             -Dsonar.projectKey=scouting-service \
             -Dsonar.host.url=https://cf65-105-66-7-93.ngrok-free.app \
             -Dsonar.login=$SONAR_TOKEN
 
       - name: Build Docker image
         run: |
-          cd Exercice-DDD/scouting-service
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/scouting-service:latest .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/scouting-service:latest ./scouting-service
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push Docker image to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/scouting-service:latest
+
